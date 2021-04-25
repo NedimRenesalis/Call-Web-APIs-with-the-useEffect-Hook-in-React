@@ -22,6 +22,13 @@ function App() {
      <ul>
        {list.map(item => <li key={item.item}>{item.item}</li>)}
      </ul>
+     <form>
+       <label>
+         <p>New Item</p>
+         <input type="text" />
+       </label>
+       <button type="submit">Submit</button>
+     </form>
    </div>
   )
 }
