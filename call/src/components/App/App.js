@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './App.css';
 import { getList, setItem } from '../../services/list';
 
@@ -6,26 +6,30 @@ function App() {
  const [alert, setAlert] = useState(false);
  const [itemInput, setItemInput] = useState('');
  const [list, setList] = useState([]);
+ const mounted = useRef(true);
+
 
   useEffect(() => {
-    let mounted = true;
+    mounted.current = true;
     if(list.length && !alert) {
       return;
     }
     getList()
       .then(items => {
-        if(mounted) {
+        if(mounted.current) {
           setList(items)
         }
       })
-    return () => mounted = false;
+    return () => mounted.current = false;
     }, [alert, list]) 
  
 
  useEffect(() => {
     if(alert) {
       setTimeout(() => {
+      if(mounted.current) {
         setAlert(false);
+      }
       }, 1000)
     }
   }, [alert])
@@ -34,8 +38,10 @@ function App() {
     e.preventDefault();
     setItem(itemInput)
     .then(() => {
+      if(mounted.current) {
         setItemInput('');
         setAlert(true);
+       }
       })
   };
 
