@@ -3,7 +3,8 @@ import './App.css';
 import { getList } from '../../services/list';
 
 function App() {
-  const [list, setList] = useState([]);
+ const [itemInput, setItemInput] = useState('');
+ const [list, setList] = useState([]);
 
   useEffect(() => {
     let mounted = true;
@@ -25,7 +26,7 @@ function App() {
      <form>
        <label>
          <p>New Item</p>
-         <input type="text" />
+         <input type="text"onChange={event => setItemInput(event.target.value)} value={itemInput} />
        </label>
        <button type="submit">Submit</button>
      </form>
