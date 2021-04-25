@@ -9,6 +9,9 @@ function App() {
 
   useEffect(() => {
     let mounted = true;
+    if(list.length && !alert) {
+      return;
+    }
     getList()
       .then(items => {
         if(mounted) {
@@ -16,7 +19,8 @@ function App() {
         }
       })
     return () => mounted = false;
-  }, [])
+    }, [alert, list]) 
+ 
 
  useEffect(() => {
     if(alert) {
